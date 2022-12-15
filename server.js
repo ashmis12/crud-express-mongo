@@ -39,14 +39,10 @@ app.get('/initiate-session', async (req, res) => {
     }
   };
   console.log(config);
-  let result = await axios(config).then((resp) => {
-    console.log("==================",resp?.data);  
-    return res.status(200).send(resp.Data);
-  }).catch((err) => {
-    console.log(err);
-  });
+  let result = await axios(config);
+  console.log(result);
+  return res.status(200).send(result.data);
 })
-
 
 app.get('/initiate-payment', async (req, res) => {
   const config = {
@@ -58,16 +54,8 @@ app.get('/initiate-payment', async (req, res) => {
     data: { InvoiceAmount: 100, CurrencyIso: 'AED' }
   };
   console.log(config);
-  const result = await axios(config).then((resp) => {
-    console.log("==================",resp?.data, (resp.data.Data));
-    return res.status(200).send(resp.data?.Data);
-  }).catch((err) => {
-    console.log(err);
-  });
-  // console.log(result);
-  // db.collection('quotes').find().toArray((err, result) => {
-    // if (err) return console.log(err)
-  // })
+  const result = await axios(config);
+  return res.status(200).send(result.data);
 })
 
 
@@ -81,12 +69,8 @@ app.get('/execute-payment', async (req, res) => {
     data: { SessionId: req.query.sessionId, InvoiceValue: 10 }
   };
   console.log(config);
-  const result = await axios(config).then((resp) => {
-    console.log("==================",res?.data, (res.data.Data));  
-    return res.status(200).send(resp.Data);
-  }).catch((err) => {
-    console.log(err);
-  });
+  const result = await axios(config);
+  return res.status(200).send(result.data);
 })
 
 
